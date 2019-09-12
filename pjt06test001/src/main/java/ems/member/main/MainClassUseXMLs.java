@@ -1,12 +1,7 @@
 package ems.member.main;
 
-import ems.member.Services.EMSInformationService;
-import ems.member.Services.StudentAllSelectService;
-import ems.member.Services.StudentRegisterService;
-import ems.member.Services.StudentSelectService;
+import ems.member.Services.*;
 import ems.member.Student;
-import ems.member.assembler.StudentAssembler;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Iterator;
@@ -14,18 +9,14 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Scanner;
-import java.util.Set;
-public class MainClassUseXML {
-
+public class MainClassUseXMLs {
     public static void main(String[] args) {
-        //db에는 sNums, sId, sPws, sNames, sAges, sGenders, sMajors
+
         String[] sNums = {"H39r8djakndfae32", "H39asdfaelu42o23", "H39iiemamca8w9h4",
                 "H39lkmn754fghia7", "H39plo865cuy8k92", "H39mnbviiaed89q1",
                 "H399omjjyv56t3d5", "H39lczaqwg644gj8", "H39ymbcsh74thgh2",
                 "H39lesvj7544vf89"};
+
         String[] sIds = {"rabbit", "hippo", "raccoon", "elephant", "lion",
                 "tiger", "pig", "horse", "bird", "deer"};
 
@@ -41,18 +32,28 @@ public class MainClassUseXML {
                 "French Language and Literature", "Philosophy", "History",
                 "Law", "Statistics", "Computer", "Economics", "Public Administration"};
 
-        //StudentAssembler assembler = new StudentAssembler();
-        ApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationContext.xml");
-        StudentRegisterService registerService = ctx.getBean("registerService",StudentRegisterService.class);
-        //StudentRegisterService registerService = assembler.getRegisterService();
-        EMSInformationService informationService = ctx.getBean("informationService",EMSInformationService.class);
+//		StudentAssembler assembler = new StudentAssembler();
+        String[] appCtxs = {"classpath:appCtx1.xml", "classpath:appCtx2.xml", "classpath:appCtx3.xml"};
+        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext(appCtxs);
+
+        EMSInformationService informationService = ctx.getBean("informationService", EMSInformationService.class);
         informationService.outputEMSInformation();
-        for(int i=0;i<sNums.length;i++) {
-            Student student = new Student(sNums[i], sIds[i], sPws[i], sNames[i], sAges[i], sGenders[i], sMajors[i]);
+
+//		StudentRegisterService registerService = assembler.getRegisterService();
+        StudentRegisterService registerService = ctx.getBean("registerService", StudentRegisterService.class);
+        for (int j = 0; j < sNums.length; j++) {
+            Student student = new Student(sNums[j], sIds[j], sPws[j], sNames[j],
+                    sAges[j], sGenders[j], sMajors[j]);
             registerService.register(student);
         }
-        //StudentSelectService selectService = assembler.getSelectService();
-        StudentSelectService selectService = ctx.getBean("selectService",StudentSelectService.class);
+
+//		StudentModifyService modifyService = assembler.getModifyService();
+        StudentModifyService modifyService  = ctx.getBean("modifyService", StudentModifyService.class);
+        modifyService.modify(new Student("H39lesvj7544vf89", "deer", "00000", "melissa",
+                26, "W", "Vocal Music"));
+
+//		StudentSelectService selectService = assembler.getSelectService();
+        StudentSelectService selectService = ctx.getBean("selectService", StudentSelectService.class);
         Student modifiedStudent = selectService.select("H39lesvj7544vf89");
         System.out.print("sNum:" + modifiedStudent.getsNum() + "\t");
         System.out.print("|sId:" + modifiedStudent.getsId() + "\t");
@@ -62,8 +63,8 @@ public class MainClassUseXML {
         System.out.print("|sGender:" + modifiedStudent.getsGender() + "\t");
         System.out.print("|sMajor:" + modifiedStudent.getsMajor() + "\n\n");
 
-        //StudentAllSelectService allSelectService = assembler.getAllSelectService();
-        StudentAllSelectService allSelectService = ctx.getBean("allSelectService",StudentAllSelectService.class);
+//		StudentAllSelectService allSelectService = assembler.getAllSelectService();
+        StudentAllSelectService allSelectService = ctx.getBean("allSelectService", StudentAllSelectService.class);
         Map<String, Student> allStudent = allSelectService.allSelect();
         Set<String> keys = allStudent.keySet();
         Iterator<String> iterator = keys.iterator();
@@ -110,6 +111,6 @@ public class MainClassUseXML {
             }
 
         }
-    }
 
+    }
 }

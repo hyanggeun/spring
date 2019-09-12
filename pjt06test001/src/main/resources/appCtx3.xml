@@ -2,35 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="StudentDao" class="ems.member.dao.StudentDao"></bean>
-    <bean id="registerService" class="ems.member.Services.StudentRegisterService">
-        <constructor-arg ref="StudentDao"></constructor-arg>
-    </bean>
-    <bean id="modifyService" class="ems.member.Services.StudentModifyService">
-        <constructor-arg ref="StudentDao"></constructor-arg> <!--studentDao라는 생성자를 만들어준다. -->
-    </bean>
-    <bean id="deleteService" class="ems.member.Services.StudentDeleteService">
-        <constructor-arg ref="StudentDao"></constructor-arg>
-    </bean>
-    <bean id="selectService" class="ems.member.Services.StudentSelectService">
-        <constructor-arg ref="StudentDao"></constructor-arg>
-    </bean>
-    <bean id="allSelectService" class="ems.member.Services.StudentAllSelectService">
-        <constructor-arg ref="StudentDao"></constructor-arg>
-    </bean>
-    <bean id="dataBaseConnectionInfoDev" class="ems.member.DataBaseConnectionInfo">
-        <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.0.1:1521:xe"></property>
-        <property name="userId" value="devId"></property>
-        <property name="userPw" value="devPw"></property>
-    </bean>
-    <bean id="dataBaseConnectionInfoReal" class="ems.member.DataBaseConnectionInfo">
-        <property name="jdbcUrl" value="jdbc:oracle:thin:@192.168.0.1:1521:xe"></property>
-        <property name="userId" value="masterId"></property>
-        <property name="userPw" value="masterPw"></property>
-    </bean>
     <bean id="informationService" class="ems.member.Services.EMSInformationService">
-    <property name="info" value="MANAGE"></property>
-    <property name="copyRight" value="COPYRIGHT"></property>
+        <property name="info" value="MANAGE"></property>
+        <property name="copyRight" value="COPYRIGHT"></property>
         <property name="sYear">
             <value>2015</value>
         </property>
