@@ -1,4 +1,4 @@
-
+/*
 package ems.member.configuration;
 
 import ems.member.DataBaseConnectionInfo;
@@ -90,3 +90,4 @@ public class MemberConfig {
         return Ems;
     }
 }
+*/
