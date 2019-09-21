@@ -1,55 +1,57 @@
 package ems.member.configuration;
-import ems.member.DataBaseConnectionInfo;
-import ems.member.service.EMSInformationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import ems.member.DataBaseConnectionInfo;
+import ems.member.service.EMSInformationService;
 
 @Configuration
 public class MemberConfig3 {
 
     @Autowired
-    DataBaseConnectionInfo dataBaseConnectionInfoReal;
-
-    @Autowired
     DataBaseConnectionInfo dataBaseConnectionInfoDev;
 
+    @Autowired
+    DataBaseConnectionInfo dataBaseConnectionInfoReal;
+
     @Bean
-    public EMSInformationService informationService(){
-        EMSInformationService Ems = new EMSInformationService();
-        Ems.setInfo("Education");
-        Ems.setCopyRight("COPYRIGHT By HG");
-        Ems.setVer("1.0");
-        Ems.setsYear(2015);
-        Ems.setsMonth(1);
-        Ems.setsDay(1);
-        Ems.seteYear(2015);
-        Ems.seteMonth(2);
-        Ems.seteDay(28);
+    public EMSInformationService informationService() {
+        EMSInformationService info = new EMSInformationService();
+        info.setInfo("Education Management System program was developed in 2015.");
+        info.setCopyRight("COPYRIGHT(C) 2015 EMS CO., LTD. ALL RIGHT RESERVED. CONTACT MASTER FOR MORE INFORMATION.");
+        info.setVer("The version is 1.0");
+        info.setsYear(2015);
+        info.setsMonth(1);
+        info.setsDay(1);
+        info.seteYear(2015);
+        info.seteMonth(2);
+        info.seteDay(28);
 
-        ArrayList<String> developers = new ArrayList<>();
-        developers.add("Cheney");
-        developers.add("Elloy");
-        developers.add("Jasper");
-        developers.add("Dillon");
-        developers.add("Kain");
-        Ems.setDevelopers(developers);
+        ArrayList<String> developers = new ArrayList<String>();
+        developers.add("Cheney.");
+        developers.add("Eloy.");
+        developers.add("Jasper.");
+        developers.add("Dillon.");
+        developers.add("Kian.");
+        info.setDevelopers(developers);
 
-        Map<String,String> administrators = new HashMap<String,String>();
-        administrators.put("Cheney","cheney@springPjt.org");
-        administrators.put("Elloy","elloy@springPjt.org");
-        administrators.put("Jasper","Jasper@springPjt.org");
-        administrators.put("Dillon","Dillon@springPjt.org");
-        administrators.put("Kain","Kain@springPjt.org");
-        Ems.setAdministrators(administrators);
+        Map<String, String> administrators = new HashMap<String, String>();
+        administrators.put("Cheney", "cheney@springPjt.org");
+        administrators.put("Jasper", "jasper@springPjt.org");
+        info.setAdministrators(administrators);
 
-        Map<String, DataBaseConnectionInfo> dbInfos = new HashMap<>();
-        dbInfos.put("Real",dataBaseConnectionInfoReal);
-        dbInfos.put("Dev",dataBaseConnectionInfoDev);
-        Ems.setDbInfos(dbInfos);
-        return Ems;
+        Map<String, DataBaseConnectionInfo> dbInfos = new HashMap<String, DataBaseConnectionInfo>();
+        dbInfos.put("dev", dataBaseConnectionInfoDev);
+        dbInfos.put("real", dataBaseConnectionInfoReal);
+        info.setDbInfos(dbInfos);
+
+        return info;
     }
+
 }
